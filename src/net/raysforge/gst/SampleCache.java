@@ -26,7 +26,12 @@ public class SampleCache {
 			
 			ByteBuffer bb;
 			if(name.startsWith("MIDI:")) {
-				AudioInputStream ais = SaveOneNoteAsWave.getOneNoteAsAudioInputStream(60, 93, 2, 2.1);
+				String[] split = name.split(":");
+				int note = Integer.parseInt(split[1]);
+				int velocity = 93;
+				if(split.length>2)
+					velocity = Integer.parseInt(split[2]);;
+				AudioInputStream ais = SaveOneNoteAsWave.getOneNoteAsAudioInputStream(note, velocity, 2, 2.1);
 				bb = AudioUtils.readAudioFile(ais);
 			} else {
 				bb = AudioUtils.readAudioFile(new File(samplesFolder, name));
